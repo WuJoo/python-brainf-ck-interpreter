@@ -13,7 +13,7 @@ examples:
 
 $ python brainfuck.py
 Python Brainfuck Interpreter
->++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.
+>>> ++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.
 Hello World!
 
 """
@@ -119,7 +119,7 @@ def main():
     bf = BrainfuckInterpreter()
     print 'Python Brainfuck Interpreter'
     while True:
-        command = raw_input('>')
+        command = raw_input('>>> ')
         try:
             bf.execute(command)
         except IllegalCommandError as e:
