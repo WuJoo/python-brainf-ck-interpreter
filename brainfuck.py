@@ -40,13 +40,12 @@ class BrainfuckInterpreter(object):
         BrainfuckInterpreter.__get_parenthesis(self, command)
         while self.command_pointer < len(self.command):
             symbol = self.command[self.command_pointer]
-            if symbol in '[]':
+            if symbol in '[]><+-.,':
                 if symbol == '[':
                     BrainfuckInterpreter.__left_parenthesis(self)
                 elif symbol == ']':
                     BrainfuckInterpreter.__right_parenthesis(self)
-            elif symbol in '><+-.,':
-                if symbol == '>':
+                elif symbol == '>':
                     BrainfuckInterpreter.__move_right(self)
                 elif symbol == '<':
                     BrainfuckInterpreter.__move_left(self)
@@ -58,9 +57,8 @@ class BrainfuckInterpreter(object):
                     BrainfuckInterpreter.__print_ascii(self)
                 elif symbol == ',':
                     BrainfuckInterpreter.__get_ascii(self)
-                self.command_pointer += 1
-            else:
-                self.command_pointer += 1
+
+            self.command_pointer += 1
 
     def __move_right(self):
         self.memory_pointer += 1
@@ -87,12 +85,10 @@ class BrainfuckInterpreter(object):
 
     def __left_parenthesis(self):
         if self.MEMORY[self.memory_pointer] == 0:
-            self.command_pointer = self.right_parenthesis[self.command_pointer]+1
-        else:
-            self.command_pointer += 1
+            self.command_pointer = self.right_parenthesis[self.command_pointer]
 
     def __right_parenthesis(self):
-        self.command_pointer = self.left_parenthesis[self.command_pointer]
+        self.command_pointer = self.left_parenthesis[self.command_pointer] - 1
 
     def __get_parenthesis(self, command):
         self.right_parenthesis = dict()
