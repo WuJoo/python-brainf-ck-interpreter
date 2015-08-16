@@ -1,13 +1,6 @@
-import sys
-import readchar
-
-
 """
 Python Brainfuck interpreter
 author Wiktor Jeziorski
-
-TODO:
-osluga kodu z plikow
 
 examples:
 
@@ -16,7 +9,13 @@ Python Brainfuck Interpreter
 >>> ++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.
 Hello World!
 
+$ python brainfuck.py hello.txt
+Hello World!
 """
+
+
+import sys
+import readchar
 
 
 class IllegalCommandError(ValueError):
@@ -113,13 +112,22 @@ class BrainfuckInterpreter(object):
 
 def main():
     bf = BrainfuckInterpreter()
-    print 'Python Brainfuck Interpreter'
-    while True:
-        command = raw_input('>>> ')
-        try:
-            bf.execute(command)
-        except IllegalCommandError as e:
-            print e.message
+    if len(sys.argv) > 1:
+        with open(sys.argv[1]) as code:
+            lines = [line.rstrip('\n') for line in code]
+            command = "".join(lines)
+            try:
+                bf.execute(command)
+            except IllegalCommandError as e:
+                print e.message
+    else:
+        print 'Python Brainfuck Interpreter'
+        while True:
+            command = raw_input('>>> ')
+            try:
+                bf.execute(command)
+            except IllegalCommandError as e:
+                print e.message
 
 
 if __name__ == "__main__":
